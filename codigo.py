@@ -13,6 +13,8 @@ from Bio.Seq import Seq
 from Bio.SeqUtils import seq3
 import ipywidgets as widgets
 from IPython.display import display, Markdown
+import Bio
+print(Bio.__version__)
 
 # Función para procesar secuencias de ADN/ARN
 def analyze_dna(sequence):
