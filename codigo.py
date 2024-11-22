@@ -7,6 +7,7 @@ Original file is located at
     https://colab.research.google.com/drive/1gfNWqF_oTgK6WusiZLI7QSBPEKMm_MXr
 """
 
+pip install -r requirements.txt
 
 # Importación de bibliotecas
 import streamlit as st
