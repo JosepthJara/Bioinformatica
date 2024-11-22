@@ -9,10 +9,9 @@ Original file is located at
 
 
 # Importación de bibliotecas
+import streamlit as st
 from Bio.Seq import Seq
 from Bio.SeqUtils import seq3
-import ipywidgets as widgets
-from IPython.display import display, Markdown
 
 # Función para procesar secuencias de ADN/ARN
 def analyze_dna(sequence):
