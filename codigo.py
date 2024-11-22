@@ -9,55 +9,48 @@ Original file is located at
 
 
 # Importación de bibliotecas
+from Bio.Seq import Seq
 from Bio.SeqUtils import seq3
 import ipywidgets as widgets
 from IPython.display import display, Markdown
-import Bio
-print(Bio.__version__)
 
 # Función para procesar secuencias de ADN/ARN
 def analyze_dna(sequence):
-    try:
-        sequence = Seq(sequence.strip().upper())
-        if not all(base in "ACGTU" for base in sequence):
-            return Markdown("**Error:** La secuencia contiene caracteres no válidos. Solo se permiten A, C, G, T, U.")
+    sequence = Seq(sequence.strip().upper())
+    if not all(base in "ACGTU" for base in sequence):
+        return Markdown("**Error:** La secuencia contiene caracteres no válidos. Solo se permiten A, C, G, T, U.")
 
-        length = len(sequence)
-        gc_content = 100 * (sequence.count("G") + sequence.count("C")) / length
-        complement = sequence.complement()
-        transcribed = sequence.transcribe() if "T" in sequence else "No aplica (ARN)"
+    length = len(sequence)
+    gc_content = 100 * (sequence.count("G") + sequence.count("C")) / length
+    complement = sequence.complement()
+    transcribed = sequence.transcribe() if "T" in sequence else "No aplica (ARN)"
 
-        return Markdown(f"""
-        ### Resultados del análisis de ADN/ARN:
-        - **Longitud de la secuencia:** {length} bases
-        - **Contenido GC:** {gc_content:.2f}%
-        - **Complemento:** {complement}
-        - **Transcripción:** {transcribed}
-        """)
-    except Exception as e:
-        return Markdown(f"**Error inesperado:** {str(e)}")
+    return Markdown(f"""
+    ### Resultados del análisis de ADN/ARN:
+    - **Longitud de la secuencia:** {length} bases
+    - **Contenido GC:** {gc_content:.2f}%
+    - **Complemento:** {complement}
+    - **Transcripción:** {transcribed}
+    """)
 
 # Función para procesar secuencias de proteínas
 def analyze_protein(sequence):
-    try:
-        sequence = Seq(sequence.strip().upper())
-        if not all(residue in "ACDEFGHIKLMNPQRSTVWY" for residue in sequence):
-            return Markdown("**Error:** La secuencia contiene caracteres no válidos. Usa el formato de una letra para aminoácidos.")
+    sequence = Seq(sequence.strip().upper())
+    if not all(residue in "ACDEFGHIKLMNPQRSTVWY" for residue in sequence):
+        return Markdown("**Error:** La secuencia contiene caracteres no válidos. Usa el formato de una letra para aminoácidos.")
 
-        length = len(sequence)
-        hydrophobic = sum(sequence.count(res) for res in "AILMFWV")
-        hydrophilic = sum(sequence.count(res) for res in "RNDQEGKH")
-        seq_three_letter = seq3(str(sequence))
+    length = len(sequence)
+    hydrophobic = sum(sequence.count(res) for res in "AILMFWV")
+    hydrophilic = sum(sequence.count(res) for res in "RNDQEGKH")
+    seq_three_letter = seq3(str(sequence))
 
-        return Markdown(f"""
-        ### Resultados del análisis de proteínas:
-        - **Longitud de la secuencia:** {length} aminoácidos
-        - **Residuos hidrofóbicos:** {hydrophobic} ({100 * hydrophobic / length:.2f}%)
-        - **Residuos hidrofílicos:** {hydrophilic} ({100 * hydrophilic / length:.2f}%)
-        - **Secuencia en formato de tres letras:** {seq_three_letter}
-        """)
-    except Exception as e:
-        return Markdown(f"**Error inesperado:** {str(e)}")
+    return Markdown(f"""
+    ### Resultados del análisis de proteínas:
+    - **Longitud de la secuencia:** {length} aminoácidos
+    - **Residuos hidrofóbicos:** {hydrophobic} ({100 * hydrophobic / length:.2f}%)
+    - **Residuos hidrofílicos:** {hydrophilic} ({100 * hydrophilic / length:.2f}%)
+    - **Secuencia en formato de tres letras:** {seq_three_letter}
+    """)
 
 # Widgets interactivos
 analysis_type = widgets.ToggleButtons(
