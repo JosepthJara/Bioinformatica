@@ -16,6 +16,7 @@ from IPython.display import display, Markdown
 
 # Función para procesar secuencias de ADN/ARN
 def analyze_dna(sequence):
+    try:
     sequence = Seq(sequence.strip().upper())
     if not all(base in "ACGTU" for base in sequence):
         return Markdown("**Error:** La secuencia contiene caracteres no válidos. Solo se permiten A, C, G, T, U.")
@@ -32,9 +33,12 @@ def analyze_dna(sequence):
     - **Complemento:** {complement}
     - **Transcripción:** {transcribed}
     """)
+except Exception as e:
+return Markdown(f"**Error inesperado:**{str(e)}")
 
 # Función para procesar secuencias de proteínas
 def analyze_protein(sequence):
+    try:
     sequence = Seq(sequence.strip().upper())
     if not all(residue in "ACDEFGHIKLMNPQRSTVWY" for residue in sequence):
         return Markdown("**Error:** La secuencia contiene caracteres no válidos. Usa el formato de una letra para aminoácidos.")
@@ -51,6 +55,8 @@ def analyze_protein(sequence):
     - **Residuos hidrofílicos:** {hydrophilic} ({100 * hydrophilic / length:.2f}%)
     - **Secuencia en formato de tres letras:** {seq_three_letter}
     """)
+except Exception as e:
+return Markdown(f"**Error inesperado:**{str(e)}")
 
 # Widgets interactivos
 analysis_type = widgets.ToggleButtons(
