@@ -1,6 +1,3 @@
+
+biopython
 streamlit
-Bio.Seq
-Bio.SeqUtils
-pandas
-os
-IPython
