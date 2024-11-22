@@ -1,2 +1,6 @@
 streamlit
-Biopython
+Bio.Seq
+Bio.SeqUtils
+pandas
+os
+
