@@ -9,7 +9,6 @@ Original file is located at
 
 
 # Importación de bibliotecas
-from Bio.Seq import Seq
 from Bio.SeqUtils import seq3
 import ipywidgets as widgets
 from IPython.display import display, Markdown
